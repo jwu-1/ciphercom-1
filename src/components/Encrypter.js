@@ -22,6 +22,14 @@ export default function Encrypter(props) {
     })
     useEffect(blankPages
         , [])
+    useEffect(() => {
+        tableMaker()
+        let highlighted = document.querySelectorAll(".square-highlight")
+        highlighted.forEach(square => {
+
+            square.className = "square"
+        })
+    }, [thirtySix])
     function blankPages() {
         const generated = []
         let count = 1;
@@ -102,34 +110,46 @@ export default function Encrypter(props) {
 
     return (
         <div id="home">
-            {!props.printMode&&<div id="encrypter-buttons">
+            {!props.printMode && <div id="encrypter-buttons">
                 <Button variant="outline-primary" onClick={() => {
                     scramble()
                 }}>Generate One-Time-Pad</Button>
                 {used && toggle && <Button variant="outline-warning" onClick={() => {
                     setToggle(false)
-                }}>Hide One-Time-Pad</Button>}
+                }}>Hide Generated One-Time-Pad</Button>}
                 {!toggle && <Button variant="outline-success" onClick={() => {
                     setToggle(true)
-                    setToggleBlanks(false)
                 }}>Show Generated One-Time-Pad</Button>}
-                {/* {<Button variant="outline-success" onClick={() => {
-                    setToggle(true)
+                {!toggleBlanks && <Button variant="outline-success" onClick={() => {
                     setToggleBlanks(true)
-                }}>Show Blank Chart</Button>} */}
+                }}>Show Blank One-Time-Pad</Button>}
+                {toggleBlanks && <Button variant="outline-warning" onClick={() => {
+                    setToggleBlanks(false)
+                }}>Hide Blank One-Time-Pad</Button>}
             </div>}
-               {used && toggle && <Form id = "print-chart">
+            {used && toggle && !props.printTableMode &&<Form id="print-chart">
 
-                    <Form.Check 
-                        type="checkbox"
-                        label={`Print Mode(Chart)`}
-                        onChange={(e) => {
-                            props.printModeChange(e.target.checked)
-                        }} />
+                <Form.Check
+                    type="checkbox"
+                    label={`Print Mode(Chart)`}
+                    onChange={(e) => {
+                        props.printModeChange(e.target.checked)
+                    }} />
 
 
-                </Form>}
-            {toggle && !toggleBlanks && <div id="list">
+            </Form>}
+            {toggleBlanks && (!toggle || !used) && !props.printTableMode && <Form id="print-chart">
+
+                <Form.Check
+                    type="checkbox"
+                    label={`Print Mode(Chart)`}
+                    onChange={(e) => {
+                        props.printModeChange(e.target.checked)
+                    }} />
+
+
+            </Form>}
+            {toggle && !props.printTableMode &&<div id="list">
                 {list.map(character => {
                     return (<div className="overall">
                         <div type="text" className="character" defaultValue={character}>{character}</div>
@@ -138,7 +158,7 @@ export default function Encrypter(props) {
                     </div>)
                 })}
             </div>}
-            {toggle && toggleBlanks && <div id="list">
+            {toggleBlanks && !props.printTableMode &&<div id="list">
                 {blanks.map(page => {
                     return (<div className="overall">
                         <input type="text" className="box"></input>
@@ -148,7 +168,7 @@ export default function Encrypter(props) {
                 })}
             </div>}
             <br />
-            {!props.printMode&&!toggleTable && <Button variant="outline-success"
+            {!props.printMode && !toggleTable && <Button variant="outline-success"
                 onClick={() => {
                     tableMaker()
                     setToggleTable(true)
@@ -156,7 +176,7 @@ export default function Encrypter(props) {
             >
                 Show Character Reference Table
             </Button>}
-            {!props.printMode&&toggleTable && <Button variant="outline-warning"
+            {!props.printMode && toggleTable && <Button variant="outline-warning"
                 onClick={() => {
                     tableMaker()
                     setToggleTable(false)
@@ -164,15 +184,32 @@ export default function Encrypter(props) {
             >
                 Hide Character Reference Table
             </Button>}
-            {!props.printMode&&toggleTable && <div>{tableInfo}</div>}
-            {!props.printMode&&toggleTable && <div id="table">
+
+            {!props.printMode && toggleTable && <div>{tableInfo}</div>}
+            {toggleTable && (!props.printMode || props.printMode && props.printTableMode) && <Form id="print-chart">
+
+                <Form.Check
+                    type="checkbox"
+                    label={`Print Mode(Table)`}
+                    onChange={(e) => {
+                        props.printTable(e.target.checked)
+                        let highlighted = document.querySelectorAll(".square-highlight")
+                        highlighted.forEach(square => {
+
+                            square.className = "square"
+                        })
+                    }} />
+
+
+            </Form>}
+            {(!props.printMode || props.printMode && props.printTableMode) && toggleTable && <div id="table">
                 {charTable.map(array => {
                     return (<div>{array.map
                         (
                             character => {
                                 return (<div className="overall-table"><div className="character-table"
                                     onClick={() => {
-                                        setTableinfo(`
+                                        if(!props.printTableMode){setTableinfo(`
                                     Original Character: "${character.row}"
                                     Pad Key Character: "${character.column}"
                                     Cipher Character: "${character.cipher}" or
@@ -181,9 +218,28 @@ export default function Encrypter(props) {
                                     Cipher Character: "${character.cipher}"
                                     `
                                         )
-                                        console.log(character.row, character.column, character.cipher)
-                                    }}
-                                ><div>{character.cipher}</div></div>
+                                        let highlighted = document.querySelectorAll(".square-highlight")
+                                        highlighted.forEach(square => {
+
+                                            square.className = "square"
+                                        })
+                                        let allSquares = document.querySelectorAll(".square")
+                                        let allSquaresArray = Array.from(allSquares)
+                                        let columnSquares = allSquaresArray.filter(square => {
+                                            return square.id.includes(`column-${character.column}`)
+                                        })
+                                        let rowSquares = allSquaresArray.filter(square => {
+                                            return square.id.includes(`row-${character.row}`)
+                                        })
+                                        console.log(allSquaresArray[0].id)
+                                        columnSquares.forEach(square => {
+                                            square.className = "square-highlight"
+                                        })
+                                        rowSquares.forEach(square => {
+                                            square.className = "square-highlight"
+                                        })
+                                    }}}
+                                ><div className="square" id={`row-${character.row} column-${character.column}`}>{character.cipher}</div></div>
                                 </div>)
                             }
                         )

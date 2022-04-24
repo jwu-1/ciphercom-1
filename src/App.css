@@ -92,7 +92,10 @@
 .overall-table{
   border: black 1px solid;
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
+  width: 25px; 
+  height: 25px;
+  text-align: center;
 }
 .character{
   width: 100%;
@@ -111,7 +114,7 @@
 .box{
   width: 100%;
   font-size: 20px;
-  height: 3.1vh;
+  height: 3.15vh;
   border: black 1px solid;
 }
 #intro{
@@ -187,4 +190,11 @@
   cursor: pointer;
   color: #fab700;
   padding-top: 4px;
+}
+.square{
+background-color: transparent;
+
+}
+.square-highlight{
+  background-color: rgb(15, 172, 98);
 }

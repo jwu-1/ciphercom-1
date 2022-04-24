@@ -19,6 +19,7 @@ export default function Home(props) {
     const [warning, setWarning] = useState(false)
     const [listToUse, setListToUse] = useState(["*", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "1", "2", "3", "4", "5", "6", "7", "8", "9"])
     const [printMode, setPrintMode] = useState(false)
+    const [printTable, setPrintTable] = useState(false)
     const [showNum, setShowNum] = useState(true)
     function changeText(string) {
         let trueString = string.toUpperCase()
@@ -46,6 +47,16 @@ export default function Home(props) {
             setPrintMode(true)
         } else {
             setPrintMode(false)
+        }
+        console.log(checked)
+    }
+    function printModeChangeTable(checked) {
+        if (checked) {
+            setPrintMode(true)
+            setPrintTable(true)
+        } else {
+            setPrintMode(false)
+            setPrintTable(false)
         }
         console.log(checked)
     }
@@ -104,8 +115,8 @@ export default function Home(props) {
                         )
                     })}
                 </div>}
-                <Encrypter updatedList={updatedList} printMode={printMode} printModeChange={printModeChange} updateCharacterList={updateCharacterList} setCharList={setCharList} characters={charList} counter={counter} />
-                <Converter updatedList={updatedList} printMode={printMode} characters={charList} counter={counter} />
+                <Encrypter updatedList={updatedList} printMode={printMode} printTableMode = {printTable} printTable={printModeChangeTable}  printModeChange={printModeChange} updateCharacterList={updateCharacterList} setCharList={setCharList} characters={charList} counter={counter} />
+                <Converter updatedList={updatedList} printMode={printMode} printTableMode = {printTable} printTable={printModeChangeTable} characters={charList} counter={counter} />
 
             </>}
             {about &&
@@ -117,8 +128,6 @@ export default function Home(props) {
                         }}
 
                         >←Back</Button>
-                        <h3>Info:</h3>
-                        <div />
                     </div>
                     <p>Welcome to Ciphercom 1. This site is designed to optimize your use of
                         One-Time-Pads, the most powerful and simplistic way of sending encrypted
@@ -137,7 +146,9 @@ export default function Home(props) {
                         character list and will randomly generate a One-Time-Pad for use. There is a checkbox which will hide
                         everything else on the page for you to print the OTP that is generated. Be sure to use the generated OTP
                         only once for you and the recipient and then generate a new pad afterwards. It's called "One-Time-Pad" for
-                        a reason.
+                        a reason. The generator will use Javascript's Math.random() code to come up with the pad keys. A blank
+                        chart is available for you if you want to use another method to generate the keys. One of the popular 
+                        methods is by rolling some dice and seeing which character matches the number you rolled. 
                     </p>
                     <p>The Character Reference Table is a great way to see how a cipher character is generated and how it is decrypted
                         by the sender and the recipient. It will make a table based on the character list that you submitted or the default
@@ -148,6 +159,7 @@ export default function Home(props) {
                         move along the line until you find the Cipher Character. From there, head towards the adjacent direction of your pad key
                         path and you will find the Initial Character.<br /> If this is difficult to understand, simply click on a character on the table
                         and you will find information about it.
+                        If you decide to print the table, the maximum amount of characters is 43 before the table goes off of the page.
                     </p>
                     <p>The Cipher Finder and Origin Finder are tools that will take the characters that you inputted
                         and will use your character list or the default list to figure out what the Cipher Character or Initial Character is.
