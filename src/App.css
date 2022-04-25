@@ -158,6 +158,7 @@
   flex-wrap: wrap;
   width: 85%;
   font-weight: 500;
+  border-bottom: #282c34 solid 2px;
 
 }
 .char-number{

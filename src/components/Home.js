@@ -118,6 +118,8 @@ export default function Home(props) {
                         )
                     })}
                 </div>}
+                {!printMode && showNum && <div id = "total">Total Characters: {charList.length}</div>}
+
                 <Encrypter updatedList={updatedList} printMode={printMode} printTableMode = {printTable} printTable={printModeChangeTable}  printModeChange={printModeChange} updateCharacterList={updateCharacterList} setCharList={setCharList} characters={charList} counter={counter} />
                 <Converter updatedList={updatedList} printMode={printMode} printTableMode = {printTable} printTable={printModeChangeTable} characters={charList} counter={counter} />
 
