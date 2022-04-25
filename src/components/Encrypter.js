@@ -127,7 +127,7 @@ export default function Encrypter(props) {
                     setToggleBlanks(false)
                 }}>Hide Blank One-Time-Pad</Button>}
             </div>}
-            {used && toggle && !props.printTableMode &&<Form id="print-chart">
+            {used && toggle && !props.printTableMode && <Form id="print-chart">
 
                 <Form.Check
                     type="checkbox"
@@ -149,7 +149,7 @@ export default function Encrypter(props) {
 
 
             </Form>}
-            {toggle && !props.printTableMode &&<div id="list">
+            {toggle && !props.printTableMode && <div id="list">
                 {list.map(character => {
                     return (<div className="overall">
                         <div type="text" className="character" defaultValue={character}>{character}</div>
@@ -158,7 +158,7 @@ export default function Encrypter(props) {
                     </div>)
                 })}
             </div>}
-            {toggleBlanks && !props.printTableMode &&<div id="list">
+            {toggleBlanks && !props.printTableMode && <div id="list">
                 {blanks.map(page => {
                     return (<div className="overall">
                         <input type="text" className="box"></input>
@@ -209,36 +209,44 @@ export default function Encrypter(props) {
                             character => {
                                 return (<div className="overall-table"><div className="character-table"
                                     onClick={() => {
-                                        if(!props.printTableMode){setTableinfo(`
-                                    Original Character: "${character.row}"
-                                    Pad Key Character: "${character.column}"
-                                    Cipher Character: "${character.cipher}" or
-                                    Original Character: "${character.column}"
-                                    Pad Key Character: "${character.row}"
-                                    Cipher Character: "${character.cipher}"
-                                    `
-                                        )
-                                        let highlighted = document.querySelectorAll(".square-highlight")
-                                        highlighted.forEach(square => {
+                                        if (!props.printTableMode) {
+                                            setTableinfo(<div className="direction">
+                                                <div className="answer-box">
 
-                                            square.className = "square"
-                                        })
-                                        let allSquares = document.querySelectorAll(".square")
-                                        let allSquaresArray = Array.from(allSquares)
-                                        let columnSquares = allSquaresArray.filter(square => {
-                                            return square.id.includes(`column-${character.column}`)
-                                        })
-                                        let rowSquares = allSquaresArray.filter(square => {
-                                            return square.id.includes(`row-${character.row}`)
-                                        })
-                                        console.log(allSquaresArray[0].id)
-                                        columnSquares.forEach(square => {
-                                            square.className = "square-highlight"
-                                        })
-                                        rowSquares.forEach(square => {
-                                            square.className = "square-highlight"
-                                        })
-                                    }}}
+                                                    <div className="table-answer">Original Character: "{character.row}"</div>
+                                                    <div className="table-answer">Pad Key Character: "{character.column}"</div>
+                                                    <div className="table-answer">Cipher Character: "{character.cipher}"</div>
+                                                </div>
+                                                <div>or</div>
+                                                <div className="answer-box">
+                                                    <div className="table-answer">Original Character: "{character.column}"</div>
+                                                    <div className="table-answer">Pad Key Character: "{character.row}"</div>
+                                                    <div className="table-answer">Cipher Character: "{character.cipher}"</div>
+                                                </div>
+                                            </div>
+                                            )
+                                            let highlighted = document.querySelectorAll(".square-highlight")
+                                            highlighted.forEach(square => {
+
+                                                square.className = "square"
+                                            })
+                                            let allSquares = document.querySelectorAll(".square")
+                                            let allSquaresArray = Array.from(allSquares)
+                                            let columnSquares = allSquaresArray.filter(square => {
+                                                return square.id.includes(`column-${character.column}`)
+                                            })
+                                            let rowSquares = allSquaresArray.filter(square => {
+                                                return square.id.includes(`row-${character.row}`)
+                                            })
+                                            console.log(allSquaresArray[0].id)
+                                            columnSquares.forEach(square => {
+                                                square.className = "square-highlight"
+                                            })
+                                            rowSquares.forEach(square => {
+                                                square.className = "square-highlight"
+                                            })
+                                        }
+                                    }}
                                 ><div className="square" id={`row-${character.row} column-${character.column}`}>{character.cipher}</div></div>
                                 </div>)
                             }

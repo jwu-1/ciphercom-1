@@ -60,6 +60,9 @@ export default function Home(props) {
         }
         console.log(checked)
     }
+    document.addEventListener('keydown', function(e){
+        console.log(e.key)
+    })
 
     return (
 
