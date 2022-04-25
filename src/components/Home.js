@@ -111,7 +111,7 @@ export default function Home(props) {
                         return (
                             <>
                                 <div className="char-number">
-                                    <span>{charList.indexOf(character) + 1}</span>:<span>{character}</span>
+                                    <span>{charList.indexOf(character)}</span>:<span>{character}</span>
                                 </div>
 
                             </>

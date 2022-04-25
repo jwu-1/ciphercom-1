@@ -84,37 +84,35 @@ export default function Converter(props) {
         let directory = props.characters
         let length = directory.length
         let cipherSum = directory.indexOf(initLet) + directory.indexOf(padKey1)
-        console.log(cipherSum, length - 1)
-        if (cipherSum >= length - 1) {
+        console.log(cipherSum, length)
+        if (cipherSum >= length) {
             let infoNum = length
-            let infoNum2 = 1
+            let infoNum2 = 0
             console.log(cipherSum)
             console.log("FUCKIN SD")
             if (cipherSum >= length) {
                 cipherSum = cipherSum - length
-                infoNum = cipherSum + 1
-                infoNum2 = infoNum + 1
+                infoNum = cipherSum
+                infoNum2 = infoNum
 
                 console.log("SD GUNDAM")
 
             }
             console.log(cipherSum)
-            setCiphDesc(`${initLet} is character ${directory.indexOf(initLet) + 1}
-             in your list of keys. ${padKey1} is character ${directory.indexOf(padKey1) + 1}.
-             They add up to ${directory.indexOf(initLet) + directory.indexOf(padKey1) + 2} which larger
-             than the total number of characters available. Because of this we will subtract ${directory.indexOf(initLet) + directory.indexOf(padKey1) + 2} 
-             by the total number of characters, ${length}, which equates to ${infoNum2}. The number should go down the list cycle by 1
-             making the number ${infoNum}.  Character ${infoNum}
+            setCiphDesc(`${initLet} is character ${directory.indexOf(initLet)}
+             in your list of keys. ${padKey1} is character ${directory.indexOf(padKey1)}.
+             They add up to ${directory.indexOf(initLet) + directory.indexOf(padKey1)} which larger
+             than the last character number. Because of this we will subtract ${directory.indexOf(initLet) + directory.indexOf(padKey1)} 
+             by the total number of characters, ${length}, which equates to ${infoNum2}.  Character ${infoNum}
              is ${directory[cipherSum]} in your list and that will be the Cipher character you would use. 
               `)
             setCiphAns(directory[cipherSum])
         } else if (!initLet || !padKey1) {
-            setCiphDesc(`You need to enter a character for both the initial letter and pad key. `)
+            setCiphDesc(`You need to enter a character for both the originating character and pad key. `)
         } else {
-            setCiphDesc(`${initLet} is character ${directory.indexOf(initLet) + 1}
-            in your list of keys. ${padKey1} is character ${directory.indexOf(padKey1) + 1}.
-            They add up to ${directory.indexOf(initLet) + directory.indexOf(padKey1) + 2}. Subtract the total by 1
-             and the result will be  ${directory.indexOf(initLet) + directory.indexOf(padKey1) + 1}.
+            setCiphDesc(`${initLet} is character ${directory.indexOf(initLet)}
+            in your list of keys. ${padKey1} is character ${directory.indexOf(padKey1)}.
+            They add up to ${directory.indexOf(initLet) + directory.indexOf(padKey1)}. The result will be  ${directory.indexOf(initLet) + directory.indexOf(padKey1)}.
             That is the character number for ${directory[cipherSum]}. `)
             setCiphAns(directory[cipherSum])
         }
@@ -127,29 +125,36 @@ export default function Converter(props) {
         let cipherNum = directory.indexOf(ciphInp)
         let padNum = directory.indexOf(padKey2)
         let initSum = (directory.indexOf(ciphInp) - directory.indexOf(padKey2))
-        if (initSum < 0) {
+        if (!ciphInp || !padKey2) {
+            setInitDesc(`You need to enter a character for both the cipher character and pad key.`)
+            console.log(ciphInp, padKey2)
+        } else if (initSum < 0) {
             initSum += length
-            setInitDesc(`The Cipher Character, ${ciphInp} is Character #${cipherNum + 1}, it should be
-            subtracted by the index of Pad Key Character ${padKey2} which is #${padNum + 1}.
+            setInitDesc(`The Cipher Character, ${ciphInp} is Character #${cipherNum}, it should be
+            subtracted by the index of Pad Key Character ${padKey2} which is #${padNum}.
             The result is ${directory.indexOf(ciphInp) - directory.indexOf(padKey2)}.
             To make this a positive number, this number will add with the total number
-            of characters available which is ${length}. Add it by 1 and the result is ${initSum+1} which 
+            of characters available which is ${length}. The result is ${initSum} which 
             is the character number for ${directory[initSum]}.
             `)
         } else {
-            setInitDesc(`The Cipher Character, ${ciphInp} is Character #${cipherNum + 1}, it should be
-            subtracted by the index of Pad Key Character ${padKey2} which is #${padNum + 1}.
-            Add it by 1 and the result is ${initSum+1} which 
+            setInitDesc(`The Cipher Character, ${ciphInp} is Character #${cipherNum}, it should be
+            subtracted by the index of Pad Key Character ${padKey2} which is #${padNum}.
+            The result is ${initSum} which 
             is the character number for ${directory[initSum]}.
             `)
 
         }
+
         setInitAns(directory[initSum])
+        if (!ciphInp || !padKey2) {
+            setInitAns()
+        }
 
     }
     return (
         <>
-        <br/>
+            <br />
             {!props.printMode && <h3>Cipher Finder</h3>}
             {!props.printMode && <InputGroup className="mb-3">
                 <InputGroup.Text id="basic-addon2">Initial Character</InputGroup.Text>
@@ -177,7 +182,7 @@ export default function Converter(props) {
             {!props.printMode && <Button variant="outline-info" onClick={() => {
                 findCipher()
             }}>Find Cipher Character</Button>}
-            <br/>
+            <br />
 
             {!props.printMode && <div className="answer-info">
                 <div className="character-answer">{ciphAns}</div>
