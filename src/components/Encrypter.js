@@ -151,8 +151,8 @@ export default function Encrypter(props) {
             {toggle && !props.printTableMode && <div id="list">
                 {list.map(character => {
                     return (<div className="overall">
-                        <div type="text" className="character" defaultValue={character}>{character}</div>
                         <input type="text" className="box"></input>
+                        <div type="text" className="character" defaultValue={character}>{character}</div>
                         <input type="text" className="box"></input>
                     </div>)
                 })}
