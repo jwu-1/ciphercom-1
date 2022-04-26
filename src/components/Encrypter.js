@@ -47,10 +47,6 @@ export default function Encrypter(props) {
             generated.push(thirtySix[Math.floor(Math.random() * thirtySix.length)])
             count++
         }
-        // useEffect(()=>{
-        //     setActivated(true)
-        //     console.log("Working")
-        // }, activated)
         setList(generated)
         setUsed(true)
         props.updateCharacterList(thirtySix)
@@ -130,6 +126,7 @@ export default function Encrypter(props) {
             {used && toggle && !props.printTableMode && <Form id="print-chart">
 
                 <Form.Check
+                    className="no-print"
                     type="checkbox"
                     label={`Print Mode(Chart)`}
                     onChange={(e) => {
@@ -141,10 +138,12 @@ export default function Encrypter(props) {
             {toggleBlanks && (!toggle || !used) && !props.printTableMode && <Form id="print-chart">
 
                 <Form.Check
+                    className="no-print"
                     type="checkbox"
                     label={`Print Mode(Chart)`}
                     onChange={(e) => {
                         props.printModeChange(e.target.checked)
+
                     }} />
 
 
@@ -189,6 +188,7 @@ export default function Encrypter(props) {
             {toggleTable && (!props.printMode || props.printMode && props.printTableMode) && <Form id="print-chart">
 
                 <Form.Check
+                    className="no-print"
                     type="checkbox"
                     label={`Print Mode(Table)`}
                     onChange={(e) => {
@@ -238,7 +238,7 @@ export default function Encrypter(props) {
                                             let rowSquares = allSquaresArray.filter(square => {
                                                 return square.id.includes(`row-${character.row}`)
                                             })
-                                            console.log(allSquaresArray[0].id)
+
                                             columnSquares.forEach(square => {
                                                 square.className = "square-highlight"
                                             })

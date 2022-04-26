@@ -4,6 +4,7 @@ import Encrypter from './Encrypter';
 import Header from './Header';
 import { Button, Col, Container, Navbar, Nav, Row, InputGroup, FormControl, Checkbox } from "react-bootstrap";
 import Converter from "./Converter";
+import { ToastContainer, toast } from 'react-toastify';
 export default function Home(props) {
 
     const [charList, setCharList] = useState(["*", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "1", "2", "3", "4", "5", "6", "7", "8", "9"])
@@ -11,7 +12,7 @@ export default function Home(props) {
     const [counter, setCounter] = useState(0)
     function changeList(list) {
         setCharList(list)
-        console.log(list)
+        
     }
     const [characters, setCharacters] = useState("")
     const [about, setAbout] = useState(false)
@@ -25,7 +26,7 @@ export default function Home(props) {
         let trueString = string.toUpperCase()
         let textInput = document.getElementById("text-input")
         if ((characters.indexOf(trueString[trueString.length - 1]) !== -1) && (trueString.length > characters.length)) {
-            console.log(textInput)
+           
             textInput.value = characters
 
         } else {
@@ -45,11 +46,13 @@ export default function Home(props) {
     function printModeChange(checked) {
         if (checked) {
             setPrintMode(true)
+              
         } else {
             setPrintMode(false)
         }
-        console.log(checked)
+        
     }
+
     function printModeChangeTable(checked) {
         if (checked) {
             setPrintMode(true)
@@ -58,11 +61,9 @@ export default function Home(props) {
             setPrintMode(false)
             setPrintTable(false)
         }
-        console.log(checked)
+       
     }
-    document.addEventListener('keydown', function(e){
-        console.log(e.key)
-    })
+
 
     return (
 

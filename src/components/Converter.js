@@ -10,9 +10,7 @@ export default function Converter(props) {
     const [ciphInp, setCiphInp] = useState("")
     const [ciphDesc, setCiphDesc] = useState("")
     const [ciphAns, setCiphAns] = useState("")
-    function test(list) {
-        console.log(list[list.length - 1])
-    }
+  
     useEffect(() => {
         if (document.getElementById("initial-text")) {
             let textInputI = document.getElementById("initial-text")
@@ -49,7 +47,7 @@ export default function Converter(props) {
         let trueLetter = letter.toUpperCase()
         let charList = props.characters
         if (charList.indexOf(trueLetter) !== -1 || letter.length === 0) {
-            console.log(trueLetter)
+            
             setCiphInp(trueLetter)
             textInput.value = trueLetter
         } else {
@@ -61,7 +59,7 @@ export default function Converter(props) {
         let trueLetter = letter.toUpperCase()
         let charList = props.characters
         if (charList.indexOf(trueLetter) !== -1 || letter.length === 0) {
-            console.log(charList.indexOf(trueLetter))
+           
             setPadKey1(trueLetter)
             textInput.value = trueLetter
         } else {
@@ -73,7 +71,7 @@ export default function Converter(props) {
         let trueLetter = letter.toUpperCase()
         let charList = props.characters
         if (charList.indexOf(trueLetter) !== -1 || letter.length === 0) {
-            console.log(trueLetter)
+           
             setPadKey2(trueLetter)
             textInput.value = trueLetter
         } else {
@@ -84,21 +82,20 @@ export default function Converter(props) {
         let directory = props.characters
         let length = directory.length
         let cipherSum = directory.indexOf(initLet) + directory.indexOf(padKey1)
-        console.log(cipherSum, length)
+        
         if (cipherSum >= length) {
             let infoNum = length
             let infoNum2 = 0
-            console.log(cipherSum)
-            console.log("FUCKIN SD")
+           
             if (cipherSum >= length) {
                 cipherSum = cipherSum - length
                 infoNum = cipherSum
                 infoNum2 = infoNum
 
-                console.log("SD GUNDAM")
+               
 
             }
-            console.log(cipherSum)
+         
             setCiphDesc(`${initLet} is character ${directory.indexOf(initLet)}
              in your list of keys. ${padKey1} is character ${directory.indexOf(padKey1)}.
              They add up to ${directory.indexOf(initLet) + directory.indexOf(padKey1)} which larger
@@ -117,7 +114,7 @@ export default function Converter(props) {
             setCiphAns(directory[cipherSum])
         }
         setCiphAns(directory[cipherSum])
-        console.log(directory)
+        
     }
     function findInitial() {
         let directory = props.characters
@@ -127,7 +124,7 @@ export default function Converter(props) {
         let initSum = (directory.indexOf(ciphInp) - directory.indexOf(padKey2))
         if (!ciphInp || !padKey2) {
             setInitDesc(`You need to enter a character for both the cipher character and pad key.`)
-            console.log(ciphInp, padKey2)
+           
         } else if (initSum < 0) {
             initSum += length
             setInitDesc(`The Cipher Character, ${ciphInp} is Character #${cipherNum}, it should be
