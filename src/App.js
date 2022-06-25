@@ -1,9 +1,8 @@
 import './App.css';
-import Encrypter from './components/Encrypter';
+
 import Home from './components/Home';
-import Header from './components/Header';
-// import { AppRouter } from './AppRouter'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState, useEffect } from "react";
 function App() {
@@ -16,14 +15,7 @@ function App() {
 
   return (
     <div className="App">
-      <BrowserRouter>
-
-        <Routes>
-          <Route exact path='/' element={<Home />} />
-         
-        </Routes>
-
-      </BrowserRouter>
+      <Home/>
     </div>
   );
 }
