@@ -8,14 +8,12 @@ export const history = createBrowserHistory()
 
 // Export our <Router> component
 // Includes custom history object and component for auto-scrolling to top
-export function AppRouter({ children }) {
-  return (
-    <RouterOriginal history={history}>
-      <ScrollToTop />
-      {children}
-    </RouterOriginal>
-  )
-}
+export default <Router history={hashHistory}>
+  <RouterOriginal history={history}>
+    <ScrollToTop />
+    {children}
+  </RouterOriginal>
+</Router>
 
 // Remove or customize if you need more advanced scroll behavior
 // and don't want to always scroll to top when location.pathname changes.
