@@ -5,6 +5,7 @@ export default function Encrypter(props) {
     const [thirtySix, setThirtySix] = useState(props.characters)
     // const [counter, setCounter] = useState(props.counter)
     const [list, setList] = useState([])
+    const [pureList, setPureList]= useState([])
     const [charTable, setCharTable] = useState([])
     const [toggle, setToggle] = useState(true)
     const [used, setUsed] = useState(false)
@@ -51,6 +52,22 @@ export default function Encrypter(props) {
         setUsed(true)
         props.updateCharacterList(thirtySix)
     }
+    function scramblePure() {
+        const generated = []
+        let count = 1;
+        let fives = []
+        while (count < 900) {
+
+            fives.push(thirtySix[Math.floor(Math.random() * thirtySix.length)])
+            if(fives.length === 5){
+                generated.push(fives)
+                fives=[]
+            }
+            count++
+        }
+        setPureList(generated)
+    }
+
     function tableMaker() {
         let table = []
         let firstRow = []
@@ -161,11 +178,38 @@ export default function Encrypter(props) {
                 {blanks.map(page => {
                     return (<div className="overall">
                         <input type="text" className="box"></input>
-                        <input type="text" className="box"></input>
+                        <input type="text" className="box"
+                        onChange={()=>{
+                            console.log(blanks)
+                        }}
+                        
+                        ></input>
                         <input type="text" className="box"></input>
                     </div>)
                 })}
             </div>}
+            {/* <Button onClick = {()=>{
+                scramblePure()
+            }}/>
+            <Button onClick = {()=>{
+                console.log(pureList)
+            }}/>
+            <div className="scramble-pure">
+                {pureList.map(fives=>{
+                    return(
+                        
+                        <div className="fives">
+                            {fives.map(character=>{
+                                return(<div>{character}</div>)
+                            })}
+                            
+                            <div/>
+                            </div>
+                            
+                    )
+                })}
+
+            </div> */}
             <br />
             {!props.printMode && !toggleTable && <Button variant="outline-success"
                 onClick={() => {

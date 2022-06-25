@@ -235,3 +235,16 @@ background-color: transparent;
 .square-highlight{
   background-color: rgb(15, 172, 98);
 }
+.scramble-pure{
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 12px;
+  font-family:Georgia, 'Times New Roman', Times, serif;
+}
+.fives{
+  display: flex;
+}
+#total{
+
+}
