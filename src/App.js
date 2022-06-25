@@ -1,8 +1,5 @@
 import './App.css';
-
 import Home from './components/Home';
-
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState, useEffect } from "react";
 function App() {
