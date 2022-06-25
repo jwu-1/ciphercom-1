@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Encrypter from './Encrypter';
-import Header from './Header';
 import { Button, Col, Container, Navbar, Nav, Row, InputGroup, FormControl, Checkbox } from "react-bootstrap";
 import Converter from "./Converter";
 import { ToastContainer, toast } from 'react-toastify';
